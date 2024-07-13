@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Automatické zasílání vojska</title>
+<style>
+    /* Styling pro modální okna */
+    .modal {
+        display: none;
+        position: fixed;
+        z-index: 1000;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        background-color: rgba(0,0,0,0.4);
+    }
+
+    .modal-content {
+        background-color: #fefefe;
+        margin: 10% auto;
+        padding: 20px;
+        border: 1px solid #888;
+        width: 80%;
+        max-width: 600px;
+    }
+
+    .close {
+        color: #aaa;
+        float: right;
+        font-size: 28px;
+        font-weight: bold;
+    }
+
+    .close:hover,
+    .close:focus {
+        color: black;
+        text-decoration: none;
+        cursor: pointer;
+    }
+</style>
+</head>
+<body>
+
+<h1>Automatické zasílání vojska na bonusové vesnice</h1>
+
+<!-- Modální okno pro nastavení vojska -->
+<div id="settingsModal" class="modal">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <h2>Nastavení automatického zasílání vojska</h2>
+        <label for="unitType">Typ jednotek:</label>
+        <select id="unitType">
+            <option value="axe">Sekery</option>
+            <option value="spear">Kopí</option>
+            <option value="sword">Meče</option>
+            <!-- Další možnosti podle potřeby -->
+        </select>
+        <label for="unitCount">Počet jednotek:</label>
+        <input type="number" id="unitCount" min="1" value="10">
+        <button id="saveSettings">Uložit nastavení</button>
+    </div>
+</div>
+
+<!-- Modální okno pro zadávání souřadnic bonusových vesnic -->
+<div id="coordsModal" class="modal">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <h2>Zadat souřadnice bonusových vesnic</h2>
+        <label for="coords">Souřadnice:</label>
+        <textarea id="coords" rows="4" cols="50" placeholder="Zadejte souřadnice bonusových vesnic..."></textarea>
+        <button id="sendAttack">Zaslat útok</button>
+    </div>
+</div>
+
+<!-- Tlačítko pro otevření nastavení vojska -->
+<button id="showSettings">Nastavit vojsko</button>
+
+<!-- Tlačítko pro otevření zadávání souřadnic -->
+<button id="showCoords">Zadat souřadnice</button>
+
+<script>
+    // Funkce pro otevření modálního okna
+    function openModal(modalId) {
+        var modal = document.getElementById(modalId);
+        modal.style.display = "block";
+    }
+
+    // Funkce pro zavření modálního okna
+    function closeModal(modalId) {
+        var modal = document.getElementById(modalId);
+        modal.style.display = "none";
+    }
+
+    // Při kliknutí na tlačítko otevřít nastavení
+    document.getElementById("showSettings").addEventListener("click", function() {
+        openModal("settingsModal");
+    });
+
+    // Při kliknutí na tlačítko otevřít zadání souřadnic
+    document.getElementById("showCoords").addEventListener("click", function() {
+        openModal("coordsModal");
+    });
+
+    // Při kliknutí na zavírací tlačítko v modálním okně
+    var closeButtons = document.getElementsByClassName("close");
+    for (var i = 0; i < closeButtons.length; i++) {
+        closeButtons[i].addEventListener("click", function() {
+            closeModal(this.parentNode.parentNode.id);
+        });
+    }
+
+    // Při kliknutí na tlačítko uložit nastavení vojska
+    document.getElementById("saveSettings").addEventListener("click", function() {
+        var unitType = document.getElementById("unitType").value;
+        var unitCount = document.getElementById("unitCount").value;
+        // Uložit nastavení do proměnných nebo je použít přímo pro odesílání vojska
+        console.log("Typ jednotek:", unitType);
+        console.log("Počet jednotek:", unitCount);
+        // Zavřít modální okno
+        closeModal("settingsModal");
+    });
+
+    // Při kliknutí na tlačítko zaslat útok
+    document.getElementById("sendAttack").addEventListener("click", function() {
+        var coords = document.getElementById("coords").value;
+        // Zpracování souřadnic (rozparsování, validace, odeslání útoku atd.)
+        console.log("Souřadnice pro útok:", coords);
+        // Zavřít modální okno
+        closeModal("coordsModal");
+    });
+</script>
+
+</body>
+</html>
